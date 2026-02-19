@@ -63,6 +63,6 @@ public class Adapter {
     }
 
     public String toString(){
-        return "";
+        return "ID: " + id + " InputThreadType: " + inputThreadType + " OutputThreadType: " + outputThreadType + " VoltageCapacity: " + voltageCapacity;
     }
 }

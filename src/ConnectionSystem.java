@@ -18,7 +18,6 @@ public class ConnectionSystem {
         } else {
             return true;
         }
-
     }
 
     boolean connectDirectly(Connector c1, Connector c2) {
@@ -32,17 +31,18 @@ public class ConnectionSystem {
         return false;
     }
 
-
-    boolean canConnectWithAdapter(Connector c1, Connector c2, Adapter adapter) {
-        if (!(c1.getThreadType().equals(c2.getThreadType()))) {
+    boolean canConnectWithAdapter(Connector c1, Connector c2, Adapter adapter) throws Exception {
+        if (!(c1.getThreadType().equals(adapter.getInputThreadType()))) {
+            return false;
+        } else if (!(c2.getThreadType().equals(adapter.getOutputThreadType()))) {
             return false;
         } else if (Math.abs(c1.getDiameter() - c2.getDiameter()) > 5) {
             return false;
         } else if (!(Math.max(c1.getVoltage(), c2.getVoltage()) <= adapter.getVoltageCapacity())) { // I had to use ChatGPT on this one
             //the problem was that I was using a boolean in my logic - else if (!((c1.getVoltage() > 0 || c2.getVoltage() > 0) <= adapter.getVoltageCapacity()))
             return false;
-        } else if (c1.isConnected() && c2.isConnected()) {
-            return false;
+        } else if (c1.isConnected() || c2.isConnected()) {
+            throw new Exception("Both connectors need to be disconnected.");
         } else if (!(adapter.getSideA() == null && adapter.getSideB() == null)) {
             return false;
         } else {
@@ -50,7 +50,7 @@ public class ConnectionSystem {
         }
     }
 
-    boolean connectWithAdapter(Connector c1, Connector c2, Adapter adapter) {
+    boolean connectWithAdapter(Connector c1, Connector c2, Adapter adapter) throws Exception {
         if (canConnectWithAdapter(c1, c2, adapter)) {
             c1.setConnected(true);
             c1.setConnectedTo(c2);
@@ -98,6 +98,7 @@ public class ConnectionSystem {
                 totalConnectorsNotConnected.add(connector);
             }
         }
+
         for (Adapter adapter : adapters) {
             //still struggling to get adapters
         }

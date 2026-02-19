@@ -3,7 +3,7 @@ import java.util.List;
 
 public class IndustrialConnectorSystem {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         ConnectionSystem system = new ConnectionSystem();
 
@@ -49,6 +49,8 @@ public class IndustrialConnectorSystem {
         List<Connector> allConnectors = Arrays.asList(c1, c2, c3, c4);
         List<Adapter> allAdapters = Arrays.asList(adapter1, adapter2);
         String report = system.getConnectionReport(allConnectors, allAdapters);
+        System.out.println();
+        System.out.println();
         System.out.println(report);
     }
 }

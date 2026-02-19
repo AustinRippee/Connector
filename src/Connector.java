@@ -74,9 +74,7 @@ public class Connector {
 
     @Override
     public String toString(){
-        return "";
+        return "ID: " + id + " ThreadType: " + threadType + " Diameter: " + diameter + " Material: " + material + " Voltage: " + voltage;
     }
-
-
 
 }
